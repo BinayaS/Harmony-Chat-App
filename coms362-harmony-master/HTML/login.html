@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Social Platform">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>ComS_362_Social_Platform</title>
+</head>
+<body style="background-color: #f4f4f4">
+
+    <div class="w-25 container bg-white border mt-3 p-0">
+
+        <div class="row p-0">
+            <div class="col-8 mx-auto text-center p-0">
+
+                <h1 class="display-5">Harmony</h1>
+
+                <form action="mainPage.html" method="post">
+                    <label for="InputUsername"></label>
+                    <input type="text" class="form-control" id="InputUsername" placeholder="Username" required>
+
+                    <label for="InputPassword"></label>
+                    <input type="password" class="form-control" id="InputPassword" placeholder="Password" required>
+
+                    <div class="row">
+                        <div class="col-12 mx-auto py-4">
+                            <button type="button" onclick="nextPage()" class="btn btn-primary btn-block">Login</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="w-25 container bg-white border mt-2 p-0">
+        <div class="row p-0">
+            <div class="col-8 mx-auto text-center p-2">
+                <h6>Don't have an account? <a href="index.html">Sign Up</a></h6>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js" charset="utf-8"></script>
+    <script src="JS/mainPage/main.js" charset="utf-8"></script>
+
+    <script>
+        function nextPage() {
+            var queryString = "?" + $('#InputUsername').val();
+            window.location.href = "mainPage.html" + queryString;
+        }
+    </script>
+</body>
+</html>
+

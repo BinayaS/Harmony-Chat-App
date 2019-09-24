@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Social Platform">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="CSS/mainPage/style.css">
+    <title>ComS_362_Social_Platform</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+</head>
+  <body>
+
+      <div class="container-fluid h-100 p-0">
+          <!-- Top for notifications -->
+          <div class="row-fluid p-2 bg-secondary collapse" id="NotificationsBar">
+              <p class="text-center text-white m-0" id="NotificationsText"> #notifications </p>
+          </div>
+
+          <!-- _____________________ -->
+
+          <!-- Small NavBar for Mobile users -->
+          <div class="pos-f-t" id="SmallScreenNavBar">
+           <div class="collapse" id="navbarToggleExternalContent">
+             <div class="bg-dark p-4">
+               <h5 class="text-white h4">Collapsed content</h5>
+               <div class="container mt-4 mb-4">
+                  <button type="button" id="createChannel" class="btn btn-primary btn-block" onclick="" data-toggle="modal" data-target="#createChannelModal">Create Channel</button>
+                  <button type="button" id="deleteChannel" class="btn btn-primary btn-block" onclick="deleteChannelModal()" data-toggle="modal" data-target="#deleteChannelModal">Delete Channel</button>
+                  <button type="button" id="joinChannel" class="btn btn-primary btn-block" onclick="joinChannelModal()" data-toggle="modal" data-target="#joinChannelModal">Join Channel</button>
+                  <button type="button" id="leaveChannel" class="btn btn-primary btn-block" onclick="leaveChannel()">Leave Channel</button>
+                  <button type="button" id="changeStatus" class="btn btn-primary btn-block" onclick="" data-toggle="modal" data-target="#changeStatusModal">Change Status</button>
+                  <button type="button" id="searchUser" class="btn btn-primary btn-block" onclick="searchUserModal()" data-toggle="modal" data-target="#searchUserModal">Search User</button>
+                  <button type="button" id="setAdmin" class="btn btn-primary btn-block" data-toggle="modal" data-target="#setAdminModal">Grant Admin</button>
+                  <button type="button" id="muteUser" class="btn btn-primary btn-block" data-toggle="modal" data-target="#muteUserModal">Mute User</button>
+                  <button type="button" id="banUser" class="btn btn-primary btn-block" data-toggle="modal" data-target="#banUserModal">Ban User</button>
+               </div>
+             </div>
+           </div>
+           <nav class="navbar navbar-dark bg-dark">
+             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+             </button>
+           </nav>
+         </div>
+
+          <div class="row h-100">
+
+              <!-- Left Side for Channels -->
+              <div class="col-sm-2 mr-auto text-center bg-dark" id="LeftContainer">
+
+                  <div class="mt-2">
+                      <font class="text-primary" size="6">Harmony</font>
+                  </div>
+
+                  <div class="container mt-4 mb-4">
+                      <button type="button" id="createChannel" class="btn btn-primary btn-block" onclick="" data-toggle="modal" data-target="#createChannelModal">Create Channel</button>
+                      <button type="button" id="deleteChannel" class="btn btn-primary btn-block" onclick="deleteChannelModal()" data-toggle="modal" data-target="#deleteChannelModal">Delete Channel</button>
+                      <button type="button" id="joinChannel" class="btn btn-primary btn-block" onclick="joinChannelModal()" data-toggle="modal" data-target="#joinChannelModal">Join Channel</button>
+                      <button type="button" id="leaveChannel" class="btn btn-primary btn-block" onclick="leaveChannel()">Leave Channel</button>
+                      <button type="button" id="changeStatus" class="btn btn-primary btn-block" onclick="" data-toggle="modal" data-target="#changeStatusModal">Change Status</button>
+                      <button type="button" id="searchUser" class="btn btn-primary btn-block" onclick="searchUserModal()" data-toggle="modal" data-target="#searchUserModal">Search User</button>
+                      <button type="button" id="setAdmin" class="btn btn-primary btn-block" data-toggle="modal" data-target="#setAdminModal">Grant Admin</button>
+                      <button type="button" id="muteUser" class="btn btn-primary btn-block" data-toggle="modal" data-target="#muteUserModal">Mute User</button>
+                      <button type="button" id="banUser" class="btn btn-primary btn-block" data-toggle="modal" data-target="#banUserModal">Ban User</button>
+                  </div>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="createChannelModal" tabindex="-1" role="dialog" aria-labelledby="createChannelModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="createChannelModalLabel">Create Channel</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body">
+                                  <input type="text" class="form-control" id="createChannelInput" placeholder="Channel Name">
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-primary" onclick="createChannel()" data-dismiss="modal" aria-label="Close">Create</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!--End Create Modal-->
+                  <!-- Delete Channel Modal-->
+                  <div class="modal fade" id="deleteChannelModal" tabindex="-1" role="dialog" aria-labelledby="deleteChannelModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="deleteChannelModalLabel">Delete Channel</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div id="deleteChannelBody" class="modal-body">Channels to Delete: </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!--End Delete Modal-->
+                  <!--Join Channel Model-->
+                  <div class="modal fade" id="joinChannelModal" tabindex="-1" role="dialog" aria-labelledby="joinChannelModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="joinChannelModalLabel">Join Channel</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div id="joinChannelBody" class="modal-body">Available Channels: </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!--End Channel Model-->
+                  <!--Invite Modal-->
+                  <div class="modal fade" id="inviteChannelModal" tabindex="-1" role="dialog" aria-labelledby="inviteChannelModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="inviteChannelModalTitle">Join Channel?</h5>
+                              </div>
+                              <div id="inviteChannelBody" class="modal-body"> </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!--End Invite Modal-->
+                  <!-- Search User Modal-->
+                  <div class="modal fade" id="searchUserModal" tabindex="-1" role="dialog" aria-labelledby="searchUserModal" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="searchUserModal">Search Users</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div id="searchUsersBody" class="modal-body">Users: </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!--End Search User Modal-->
+                  <!--Direct Message Modal-->
+                  <div class="modal fade" id="directMessageModal" tabindex="-1" role="dialog" aria-labelledby="directMessageModal" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="directMessageTitle">Direct Message</h5>
+                                  <div class="modal-body">
+                                      <input type="text" class="form-control" id="directMessageInput" placeholder="Type here">
+                                  </div>
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-primary" onclick="sendDirectMessage()" data-dismiss="modal" aria-label="Close">Send</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!--End Message Modal-->
+                  <!-- Change Status Modal-->
+                  <div class="modal fade" id="changeStatusModal" tabindex="-1" role="dialog" aria-labelledby="changeStatusModal" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="changeStatusModal">Change Current Status</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div id="changeStatusModal" class="modal-body">Choose Status: </div>
+                              <div class="container p-2">
+                                  <button type="button" onclick="setOnline()" class="btn btn-success">Online</button>
+                                  <button type="button" onclick="setOffline()" class="btn btn-secondary">Offline</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!--End Change Status Modal-->
+                  <!-- Set Admin Modal -->
+                  <div class="modal fade" id="setAdminModal" tabindex="-1" role="dialog" aria-labelledby="setAdminModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="setAdminModalLabel">Grant Admin</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body">
+                                  <input type="text" class="form-control" id="setAdminInput" placeholder="username">
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-primary" onclick="setAdmin()" data-dismiss="modal" aria-label="Close">Grant</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- End Set Admin Modal-->
+                  <!-- Mute User Modal -->
+                  <div class="modal fade" id="muteUserModal" tabindex="-1" role="dialog" aria-labelledby="muteUserModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="muteUserModalLabel">Mute User</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body">
+                                  <input type="text" class="form-control" id="muteUserInput" placeholder="username">
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-primary" onclick="muteUser()" data-dismiss="modal" aria-label="Close">Mute</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- End Mute User Modal-->
+                  <!--Upload Modal-->
+                  <a class="btn btn-primary btn-block" id="myTrigger">Click Here to Upload/Download File</a>
+                  <div id="myModal" class="card" data-reveal></div>
+                  <!--End Upload Modal-->
+                  <!-- Ban User Modal -->
+                  <div class="modal fade" id="banUserModal" tabindex="-1" role="dialog" aria-labelledby="banUserModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="banUserModalLabel">Ban User</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body">
+                                  <input type="text" class="form-control" id="banUserInput" placeholder="username">
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-primary" onclick="banUser()" data-dismiss="modal" aria-label="Close">Ban</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- End Ban User Modal-->
+              </div>
+              <!-- End of Left Side -->
+              <!-- Center for Chat -->
+              <div class="col bg-light">
+                  <div class="row bg-light border-bottom">
+                      <p class="text-dark pl-4 pt-2" id="chanTitle"> #Channel Title </p>
+                  </div>
+
+                  <div id="chat-window">
+                      <div id="output">
+                      </div>
+                  </div>
+
+                  <div class="row mx-auto mt-auto">
+                      <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                              <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="sendMessage()">Send</button>
+                          </div>
+                          <input type="text" id="msg" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                      </div>
+                  </div>
+
+              </div>
+              <!-- End of Chat -->
+              <!-- Right Side for Chat List -->
+              <div class="col-sm-1 bg-dark text-center p-0" id="RightContainer">
+                  <div class="mt-2" id="FriendText">
+                      <font class="text-primary" size="4">Friends</font> <br>
+                  </div>
+              </div>
+              <!-- End of Chat List -->
+
+          </div>
+      </div>
+      <script src="JS/mainPage/main.js" charset="utf-8"></script>
+
+  </body>
+</html>

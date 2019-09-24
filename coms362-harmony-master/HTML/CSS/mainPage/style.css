@@ -1,0 +1,63 @@
+#LeftBoard {
+  background-color: purple;
+  height: 100%;
+  width: 100%;
+}
+
+.fill  {
+  height: 100%;
+}
+
+html, body {
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
+.h-85 {
+  height: 85%;
+}
+
+#chat-window{
+    height: 700px;
+    overflow: auto;
+    background: #f9f9f9;
+}
+
+#output p{
+    padding: 14px 0px;
+    margin: 0 20px;
+    border-bottom: 1px solid #e9e9e9;
+    color: #555;
+}
+
+#output strong{
+    color: #575ed8;
+}
+
+#NotificationsText {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#SmallScreenNavBar {
+  display: none;
+}
+
+#chat-window{
+    height: 700px;
+    overflow: auto;
+    background: #f9f9f9;
+}
+
+@media (max-width: 992px) {
+  #LeftContainer {
+    display: none;
+  }
+  #RightContainer {
+    display: none;
+  }
+  #SmallScreenNavBar {
+    display: block;
+  }
+}
